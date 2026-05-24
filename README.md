@@ -6,6 +6,7 @@
 
 - ✅ `windows-cpu-avx1` — CPU-only AVX1 build (confirmed working on Ivy Bridge)  
 - ✅ `windows-vulkan-avx1` — Vulkan GPU backend built with AVX1 support (confirmed working on Ivy Bridge + Vulkan-capable GPU)
+- ✅ `windows-vulkan-avx1-2.16.x` — **LM Studio 2.16.0 / llama.cpp main** Vulkan + AVX1 backends, confirmed loading Gemma 4 / Qwen 3.5 on Ivy Bridge. See [`Releases/GPU Vulkan AVX1/`](Releases/GPU%20Vulkan%20AVX1/).
 - 🌀 Arch Linux build script (testers especially wanted!)
 
 ## Backends in Developed:

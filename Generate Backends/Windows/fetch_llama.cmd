@@ -35,7 +35,7 @@ if exist ".git" (
     echo [INFO] No Git repository found. Cloning llama.cpp...
     rem Go up to parent directory to safely clone
     pushd .. >nul
-    git clone https://github.com/ggerganov/llama.cpp.git "%TARGET_DIR%"
+    git clone https://github.com/ggml-org/llama.cpp.git "%TARGET_DIR%"
     if errorlevel 1 (
         echo [ERROR] Failed to clone repository.
         popd

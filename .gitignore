@@ -1,0 +1,12 @@
+# Claude Code / agent state
+.claude/
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store
+*.swp
+
+# Local build outputs from Generate Backends scripts
+build_cpu/
+build_gpu_vulkan/
+build_gpu_cuda/

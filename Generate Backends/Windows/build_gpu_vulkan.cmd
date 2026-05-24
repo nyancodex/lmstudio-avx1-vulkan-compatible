@@ -49,12 +49,20 @@ REM Configure with CMake
 REM -------------------------
 echo [INFO] Building in "%BUILD_DIR%"
 
+REM AVX1 target: explicit ISA flags so the build runs on any AVX1 CPU
+REM (Ivy Bridge etc.) regardless of what the build machine supports.
+REM Ivy Bridge has AVX + F16C, but NOT AVX2 or FMA.
 cmake -S . -B "%BUILD_DIR%" ^
       -G "Ninja" ^
       -DCMAKE_BUILD_TYPE=Release ^
       -DGGML_VULKAN=ON ^
       -DLLAMA_CURL=OFF ^
-      -DGGML_NATIVE=ON
+      -DGGML_NATIVE=OFF ^
+      -DGGML_AVX=ON ^
+      -DGGML_AVX2=OFF ^
+      -DGGML_FMA=OFF ^
+      -DGGML_F16C=ON ^
+      -DGGML_AVX512=OFF
 
 REM remove release to build *everything* and not just core
 cmake --build "%BUILD_DIR%" --verbose
