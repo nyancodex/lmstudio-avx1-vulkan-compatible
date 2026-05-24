@@ -1,75 +1,28 @@
-# LM Studio Unlocked Backend
+# LM Studio AVX1 Vulkan Compatible
 
-**Premise:** the developer team said it wouldn't work. we did it anyway and built our own **unofficial** backends for LM Studio — patched `llama.cpp` backends that let LM Studio run on much wider / older hardware.
+Drop-in Vulkan backends for **LM Studio** that work on old **AVX1-only CPUs** (Ivy Bridge, Sandy Bridge, older AMD) where the official AVX2 backends refuse to load.
 
-## Backends Available: 
+Confirmed loading **Gemma 4** and **Qwen 3.5** on Ivy Bridge under LM Studio 3.9.x.
 
-- ✅ `windows-cpu-avx1` — CPU-only AVX1 build (confirmed working on Ivy Bridge)  
-- ✅ `windows-vulkan-avx1` — Vulkan GPU backend built with AVX1 support (confirmed working on Ivy Bridge + Vulkan-capable GPU)
-- ✅ `windows-vulkan-avx1-2.16.x` — **LM Studio 2.16.0 / llama.cpp main** Vulkan + AVX1 backends, confirmed loading Gemma 4 / Qwen 3.5 on Ivy Bridge. See [`Releases/GPU Vulkan AVX1/`](Releases/GPU%20Vulkan%20AVX1/).
-- 🌀 Arch Linux build script (testers especially wanted!)
+## Quick install
 
-## Backends in Developed:
-- 🚧 `noavx-experimental` — experimental pure fallback; limited performance and compatibility
-- 🚧 `avx512++` — coming soon
-- 🚧 `cuda` — coming soon
+1. Download a zip from [`Releases/GPU Vulkan AVX1/`](Releases/GPU%20Vulkan%20AVX1/).
+2. Extract it into `C:\Users\%USERNAME%\.lmstudio\extensions\backends\`.
+3. Fully quit LM Studio (system tray → Quit) and reopen it.
+4. In the runtime/engine selector, pick the new backend, then load your model.
 
-## Custom Backends for your System 🚀 ?
-- Follow the instructions in `Generate Backends`. Windows confirmed working, (Arch) Linux experimental, patches with MXFP4 required.
-  
-**NOTE** : To save time building, on newer Windoes versions Vulkan backend is already built without AVX2 so patching it is and **confirmed working**. This is likely to work on CUDA gpus as well however is untested at the monent. (Patch in the manifest json file)
-```
-"instruction_set_extensions": [
-      "AVX"
-    ]
-```
-  
-# Quick usage — drag & drop
+That's it. See [`Releases/GPU Vulkan AVX1/readme.md`](Releases/GPU%20Vulkan%20AVX1/readme.md) for which zip to grab.
 
-1. Locate LM Studio backends folder on Windows
-     ```
-     C:\Users\%USERNAME%\.lmstudio\extensions\backends\
-     ```
+## Build your own
 
-2. Copy one or more backend folders from `Releases` in this repo into LM Studio directory.
+See [`Generate Backends/`](Generate%20Backends/) for build scripts. The Windows Vulkan script is already configured for AVX1 — just install Visual Studio 2022 Build Tools (with the C++ workload), CMake, Ninja, and the Vulkan SDK, then run the scripts from an *x64 Native Tools Command Prompt*.
 
-3. Restart LM Studio. Your custom backend(s) should appear in the backend selection list.
-   
-4. Want to Build your own? Follow instructions in `Generate Backends`
+## Credits
 
-# Troubleshooting & tips
+This is a fork of **[theIvanR/lmstudio-unlocked-backend](https://github.com/theIvanR/lmstudio-unlocked-backend)** by **theIvanR** — all build scripts, the original backend patches, and the foundational work are theirs. This fork adds two updated Vulkan+AVX1 backends built against current LM Studio 2.16.0 and `llama.cpp` main, so newer models like Gemma 4 and Qwen 3.5 load correctly.
 
-- If the backend doesn't show up:
-- Verify you copied the backend folder into the correct `backends` path (hidden `.lmstudio` on Windows).  
-- Ensure file permissions allow LM Studio to execute the files.  
-- Restart LM Studio (full restart — not just window refresh).  
-- If the backend crashes on start:
-- Try the `noavx-experimental` as a fallback to confirm AVX issues.  
-- Flash Attention currently appears broken on Vulkan, issue appears to be with an underflow and a NaN in the llama backend itself, hopefully will be mitigated soon.
-- The surveying hardware bug is intermittent and testers on various machines are needed. It seems to afflict nvidia gpus in TCC mode, switching to WDDM appears to resolve the issue. 
+Underlying engine: **[ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp)** (MIT). The original AVX2-gated binaries belong to **[LM Studio](https://lmstudio.ai/)**.
 
-# ** IMPORTANT UPDATE REGARDING LMSTUDIO **
-### 1: Uninstall on Windows is currently broken and leaves a mess in the system in the following locations: 
-- HKEY_CURRENT_USER\Software\Classes\
-- user
-- appdata
-- localappdata
+## License & disclaimer
 
-
-### 2: With recent improvements to llama cpp web ui I can no longer recommend to use LM Studio especially on legacy systems. Instead, run the llama cpp backends directly via the web UI. Instructions provided in my other repository: 
-https://github.com/theIvanR/llama-on-legacy-gpu/tree/main
----
-
-## Licensing, Disclaimer, Credits
-
-- **Unofficial / experimental:** Community-made patches; use at your own risk.  
-- **License:** MIT, following `llama.cpp` conventions.  
-- **No warranties:** Not guaranteed for production or mission-critical use—use official LM Studio backends for stability.  
-- **Credits:** Patches tested by repo maintainers; based on `llama.cpp` and LM Studio work.
-
-
-# Contact / contribute
-
-- Pull requests welcome: add build scripts, CI, or additional patched backends.  
-- If you want a custom backend built for a particular CPU/GPU, open an issue or request and we'll try to provide one.
-
+MIT, matching the upstream `llama.cpp` and the original repo. Unofficial / community-made; use at your own risk and back up your existing LM Studio backends folder before installing.
