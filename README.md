@@ -2,7 +2,7 @@
 
 Drop-in Vulkan backends for **LM Studio** that work on old **AVX1-only CPUs** (Ivy Bridge, Sandy Bridge, older AMD) where the official AVX2 backends refuse to load.
 
-Confirmed loading **Gemma 4** and **Qwen 3.5** on Ivy Bridge under LM Studio 3.9.x.
+Confirmed loading **Gemma 4** and **Qwen 3.5** on Ivy Bridge under **LM Studio 0.4.14**.
 
 ## Quick install
 

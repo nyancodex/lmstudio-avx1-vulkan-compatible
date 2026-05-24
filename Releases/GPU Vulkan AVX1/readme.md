@@ -2,6 +2,8 @@
 
 Two drop-in Vulkan backends for LM Studio that work on AVX1-only CPUs. Pick one, extract, restart LM Studio.
 
+Confirmed working on **LM Studio 0.4.14** (Ivy Bridge + Vulkan-capable GPU).
+
 ## Which zip?
 
 | Zip | Pick this if… |
